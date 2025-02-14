@@ -1,11 +1,12 @@
 ﻿namespace CheckoutTests
 {
     [TestClass]
-    public sealed class Test1
+    public sealed class Checkouttests
     {
         [TestMethod]
-        public void TestMethod1()
+        public void ScanAddsToCheckout()
         {
+
         }
     }
 }
