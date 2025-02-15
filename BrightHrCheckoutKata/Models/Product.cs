@@ -12,5 +12,13 @@ namespace BrightHrCheckoutKata.Models
         public int UnitPrice { get; set; }
         public int OfferAmount { get; set; }
         public int OfferPrice { get; set; }
+
+        public Product(string sku, int unitPrice, int offerAmount, int offerPrice)
+        {
+            Sku = sku;
+            UnitPrice = unitPrice;
+            OfferAmount = offerAmount;
+            OfferPrice = offerPrice;
+        }
     }
 }
