@@ -18,9 +18,18 @@ namespace BrightHrCheckoutKata.Services
             Products = new List<Product>();
         }
 
-        public void Scan(string item)
+        public void Scan(string sku)
         {
-            throw new NotImplementedException();
+            if (!string.IsNullOrEmpty(sku))
+            {
+                Product product = _productService.GetProduct(sku);
+
+
+                if (product != null)
+                {
+                    Products.Add(product);
+                }
+            }
         }
         
         public int GetTotalPrice()
