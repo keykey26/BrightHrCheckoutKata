@@ -95,7 +95,7 @@ namespace CheckoutTests
 
             checkoutService.Scan("A");
 
-            Assert.IsFalse(checkoutService.GetTotalPrice() == 50, "Price for 1 product is wrong");
+            Assert.IsTrue(checkoutService.GetTotalPrice() == 50, $"Price for 1 product is wrong expected 50 got {checkoutService.GetTotalPrice()}");
         }
 
         [TestMethod]
@@ -111,7 +111,7 @@ namespace CheckoutTests
             checkoutService.Scan("B");
             checkoutService.Scan("C");
 
-            Assert.IsFalse(checkoutService.GetTotalPrice() == 100, "Price for mutiple products is wrong");
+            Assert.IsTrue(checkoutService.GetTotalPrice() == 100, $"Price for mutiple products is wrong expected 100 got {checkoutService.GetTotalPrice()}");
         }
 
         [TestMethod]
@@ -125,7 +125,7 @@ namespace CheckoutTests
             checkoutService.Scan("A");
             checkoutService.Scan("A");
 
-            Assert.IsFalse(checkoutService.GetTotalPrice() == 130, "Price for mutiple products is wrong");
+            Assert.IsTrue(checkoutService.GetTotalPrice() == 130, $"Price for mutiple products is wrong expected 130 got {checkoutService.GetTotalPrice()}");
         }
 
         [TestMethod]
@@ -140,7 +140,7 @@ namespace CheckoutTests
             checkoutService.Scan("A");
             checkoutService.Scan("A");
 
-            Assert.IsFalse(checkoutService.GetTotalPrice() == 180, "Price for mutiple products is wrong");
+            Assert.IsTrue(checkoutService.GetTotalPrice() == 180, $"Price for mutiple products is wrong expected 180 got {checkoutService.GetTotalPrice()}");
         }
     }
 }

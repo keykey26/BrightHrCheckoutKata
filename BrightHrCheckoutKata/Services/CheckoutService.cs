@@ -41,7 +41,24 @@ namespace BrightHrCheckoutKata.Services
         
         public int GetTotalPrice()
         {
-            throw new NotImplementedException();
+            int totalPrice = 0;
+
+            foreach(var checkOutProduct in Products)
+            {
+                Product product = _productService.GetProduct(checkOutProduct.Key);
+
+                if(product.OfferAmount > 0 && checkOutProduct.Value >= product.OfferAmount)
+                {
+                    totalPrice = totalPrice + (product.OfferPrice * (checkOutProduct.Value / product.OfferAmount));
+                    totalPrice = totalPrice + (product.UnitPrice * (checkOutProduct.Value % product.OfferAmount));
+                }
+                else
+                {
+                    totalPrice = totalPrice + product.UnitPrice * checkOutProduct.Value;
+                }
+            }
+
+            return totalPrice;
         }
     }
 }
