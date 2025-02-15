@@ -29,16 +29,49 @@ namespace CheckoutTests
         [TestMethod]
         public void ScanAddsMutipleToCheckout()
         {
-            _productService.GetProduct(Arg.Any<string>()).Returns(new Product("A", 50, 3, 130));
+            _productService.GetProduct("A").Returns(new Product("A", 50, 3, 130));
+            _productService.GetProduct("B").Returns(new Product("B", 30, 2, 45));
+            _productService.GetProduct("C").Returns(new Product("C", 20, 0, 0));
 
             var checkoutService = new CheckoutService(_productService);
 
             checkoutService.Scan("A");
             checkoutService.Scan("B");
             checkoutService.Scan("C");
-            checkoutService.Scan("D");
 
-            Assert.IsTrue(checkoutService.Products.Count() == 4, "Scan has failed");
+            Assert.IsTrue(checkoutService.Products.Count() == 3, "Scan has failed");
+        }
+
+        [TestMethod]
+        public void ScanAddsMutipleOfOneProductToCheckout()
+        {
+            _productService.GetProduct(Arg.Any<string>()).Returns(new Product("A", 50, 3, 130));
+
+            var checkoutService = new CheckoutService(_productService);
+
+            checkoutService.Scan("A");
+            checkoutService.Scan("A");
+            checkoutService.Scan("A");
+
+            Assert.IsTrue(checkoutService.Products.Count() == 1, "Scan has added same product as mutiple");
+            Assert.IsTrue(checkoutService.Products["A"] == 3, "Scan has added same product wrong");
+        }
+
+        [TestMethod]
+        public void ScanAddsMutipleOfOneProductToCheckoutWithExtra()
+        {
+            _productService.GetProduct(Arg.Any<string>()).Returns(new Product("A", 50, 3, 130));
+            _productService.GetProduct("B").Returns(new Product("B", 30, 2, 45));
+
+            var checkoutService = new CheckoutService(_productService);
+
+            checkoutService.Scan("A");
+            checkoutService.Scan("A");
+            checkoutService.Scan("A");
+            checkoutService.Scan("B");
+
+            Assert.IsTrue(checkoutService.Products.Count() == 2, "Scan has added same product as mutiple");
+            Assert.IsTrue(checkoutService.Products["A"] == 3, "Scan has added same product wrong");
         }
 
         [TestMethod]

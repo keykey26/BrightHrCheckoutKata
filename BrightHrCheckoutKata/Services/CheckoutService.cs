@@ -10,12 +10,12 @@ namespace BrightHrCheckoutKata.Services
     public class CheckoutService: ICheckoutService
     {
         private IProductService _productService;
-        public List<Product> Products;
+        public Dictionary<string, int> Products;
 
         public CheckoutService(IProductService productService)
         {
             _productService = productService;
-            Products = new List<Product>();
+            Products = new Dictionary<string, int>();
         }
 
         public void Scan(string sku)
@@ -27,7 +27,14 @@ namespace BrightHrCheckoutKata.Services
 
                 if (product != null)
                 {
-                    Products.Add(product);
+                    if (Products.ContainsKey(sku))
+                    {
+                        Products[sku] = Products[sku] + 1;
+                    }
+                    else
+                    {
+                        Products.Add(sku, 1);
+                    }
                 }
             }
         }
